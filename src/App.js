@@ -45,6 +45,7 @@ export class TodoApp extends React.Component{
     constructor(){
         super()
         this.state = {
+            todoList:[],
             value:""
         }
     }
@@ -53,17 +54,46 @@ export class TodoApp extends React.Component{
         this.setState({value:e.target.value})
     }
 
+    add(){
+        this.setState({
+            todoList:this.state.todoList.concat(this.state.value)
+        })
+        this.setState({value:""})
+    }
+
     render() {
         return(
             <div>
                 <h1>TodoApp</h1>
-                <input
-                    type="text"
-                    value={this.state.value}
-                    onChange={e => this.handleChange(e)}
-                />
-                <p>{this.state.value}</p>
+                <input type="text" value={this.state.value} onChange={e => this.handleChange(e)} />
+                <button onClick={() => this.add()}>追加</button>
+                <ul>
+                    {this.state.todoList.map((todo, i) => (
+                        <TodoElement key={i} content={todo} />
+                    ))}
+                </ul>
             </div>
+        );
+    }
+}
+
+class AddTodo extends React.Component {
+    render(){
+        return(
+            <div>
+                <input type="text" value={this.props.value} onChange={this.props.onChange} />
+                <button onClick={this.props.add}>追加</button>
+            </div>
+        );
+    }
+}
+
+class TodoElement extends React.Component {
+    render() {
+        return(
+            <li>
+                {this.props.content}
+            </li>
         );
     }
 }
