@@ -1,26 +1,69 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export class HelloWorld extends React.Component {
+    render() {
+        return(
+            <div>
+                HelloWorld
+            </div>
+        );
+    }
 }
 
-export default App;
+export class CountApp extends React.Component{
+    constructor(){
+        super()
+        this.state = {
+            count:0
+        }
+    }
+
+    plus(){
+        this.setState({count:this.state.count + 1})
+    }
+
+    minas(){
+        this.setState({count:this.state.count -1})
+    }
+
+    render() {
+        return(
+            <div>
+                <h1>カウンター</h1>
+                <p>{this.state.count}</p>
+                <div>
+                    <button onClick={() => this.plus()}>+</button>
+                    <button onClick={() => this.minas()}>-</button>
+                </div>
+            </div>
+        );
+    }
+}
+
+export class TodoApp extends React.Component{
+    constructor(){
+        super()
+        this.state = {
+            value:""
+        }
+    }
+
+    handleChange(e){
+        this.setState({value:e.target.value})
+    }
+
+    render() {
+        return(
+            <div>
+                <h1>TodoApp</h1>
+                <input
+                    type="text"
+                    value={this.state.value}
+                    onChange={e => this.handleChange(e)}
+                />
+                <p>{this.state.value}</p>
+            </div>
+        );
+    }
+}
